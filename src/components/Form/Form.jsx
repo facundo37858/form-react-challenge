@@ -3,6 +3,8 @@ import Modal from '../Modal/Modal'
 import {BiErrorCircle} from 'react-icons/bi'
 import './style.css'
 import validateForm from '../../utils/validatorForm'
+import valideteSubmit from '../../utils/validetSubmit'
+
 
 
 // import { title } from './form.css';
@@ -30,7 +32,7 @@ const Form=()=>{
 
     const handelSubmit=(event)=>{
         event.preventDefault()
-        if(Object.keys(errors).length === 0 ){
+        if(Object.keys(errors).length === 0 && valideteSubmit(inputs)){
             handelShowModal()
             setData({
                 ...inputs
@@ -43,6 +45,7 @@ const Form=()=>{
                 textarea:''
             })
         }
+        setError(validateForm(inputs))
        
       
     }
