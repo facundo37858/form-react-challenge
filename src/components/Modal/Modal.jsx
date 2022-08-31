@@ -21,7 +21,7 @@ const Modal=({data,handelShowModal})=>{
               })} */}
               <div className='data'>{JSON.stringify(data, null, 2)}</div>
             
-                <button className='modal-close'onClick={handelShowModal}><AiFillCloseCircle className='icon'/></button>
+                <button className='modal-close'onClick={handelShowModal}><AiFillCloseCircle className='icon-modal'/></button>
             </div>
         </article>
     )
