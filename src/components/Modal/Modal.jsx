@@ -1,9 +1,29 @@
 import './style.css'
-const Modal=()=>{
+import { AiFillCloseCircle} from 'react-icons/ai'
+
+const Modal=({data,handelShowModal})=>{
+    console.log(JSON.stringify(data, null, 2))
+    const showData=(data)=>{
+        let arrdata=[]
+        for(let val in data){
+            arrdata=[...arrdata,data[val]]
+        }
+        return arrdata
+    }
+    
     return(
-        <h1>
-            Modal
-        </h1>
+        <article className='modal is-open'>
+            <div className='modal-container'>
+              {/* {showData(data).map((e,index)=>{
+                return(
+                    <p key={index}>{e}</p>
+                )
+              })} */}
+              <div className='data'>{JSON.stringify(data, null, 2)}</div>
+            
+                <button className='modal-close'onClick={handelShowModal}><AiFillCloseCircle className='icon'/></button>
+            </div>
+        </article>
     )
 }
 export default Modal
