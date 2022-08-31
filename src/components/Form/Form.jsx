@@ -1,25 +1,95 @@
+import { useState } from 'react'
+import Modal from '../Modal/Modal'
 import './style.css'
+
 // import { title } from './form.css';
 const Form=()=>{
+    const [inputs,setInpunts]=useState({
+        name:'',
+        email:'',
+        password:'',
+        textarea:''
+    })
+    const [showModal, setShowModal]=useState(false)
+
+    const handelInputChange=(event)=>{
+        event.preventDefault()
+        const value = event.target.value
+        setInpunts({
+            ...inputs,
+            [event.target.name]:value
+        })
+        // console.log(event.target.name)
+    }
+
+    const handelSubmit=(event)=>{
+        event.preventDefault()
+        handelShowModal()
+        alert(JSON.stringify(inputs))
+    }
+
+    const handelShowModal=()=>{
+        setShowModal(showModal=>showModal=!showModal)
+    }
+
+
+
     return(
-        <main className='containerForm'>
-            <form>
-                <label for='name'>Name
-                    <input type='text' className='input-form'/>
-                </label>
-                <label>Email
-                    <input type='email' className='input-form'/>
-                </label>
-                <label>Password
-                    <input type='password' className='input-form'/>
-                </label>
-                <label>Text Area
-                    <textarea name="" id="" cols="30" rows="10" className='input-form'></textarea>
-                </label>
-                <input type="submit" />
-            </form>
-    
-        </main>
+        <>
+            <main className='containerForm'>
+                <form onSubmit={handelSubmit}>
+                    <label for='name'>Name
+                        <input
+                        type='text' 
+                        name='name' 
+                        id='name' 
+                        className='input-form' 
+                        onChange={handelInputChange}
+                        value={inputs.name}
+                        required
+                        />
+                    </label>
+                    <label for='email'>Email
+                        <input 
+                        type='email' 
+                        name='email' 
+                        id='email' 
+                        className='input-form'
+                        onChange={handelInputChange}
+                        value={inputs.email} 
+                        required/>
+                    </label>
+                    <label for='password'>Password
+                        <input 
+                        type='password' 
+                        name='password' 
+                        id='password' 
+                        className='input-form'
+                        onChange={handelInputChange}
+                        value={inputs.password} 
+                        required/>
+                    </label>
+                    <label for='textArea'>Text Area
+                        <textarea 
+                        name="textarea" 
+                        id="textArea" 
+                        cols="30" 
+                        rows="10" 
+                        className='input-form'
+                        onChange={handelInputChange}
+                        value={inputs.textarea}
+                        >
+                        </textarea>
+                    </label>
+                    <input type="submit" value='Submit'/>
+                </form>
+            </main>
+            {
+                showModal && <Modal/>
+            }
+        </>
+
+
     )
 
 }
