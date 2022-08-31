@@ -30,17 +30,20 @@ const Form=()=>{
 
     const handelSubmit=(event)=>{
         event.preventDefault()
-        handelShowModal()
-        setData({
-            ...inputs
-        })
-
-        setInpunts({...inputs,
-            name:'',
-            email:'',
-            password:'',
-            textarea:''
-        })
+        if(Object.keys(errors).length === 0 ){
+            handelShowModal()
+            setData({
+                ...inputs
+            })
+    
+            setInpunts({...inputs,
+                name:'',
+                email:'',
+                password:'',
+                textarea:''
+            })
+        }
+       
       
     }
 
