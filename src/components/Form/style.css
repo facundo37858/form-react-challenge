@@ -1,3 +1,7 @@
+h1{
+    font-family: 'Inter', sans-serif;
+}
+
 .containerForm{
     width: 940px;
     margin: 0 auto;
@@ -9,11 +13,49 @@ form label{
     display: block;
     font-size: 20px;
     margin: 0 0 10px;
+    font-family: 'Inter', sans-serif;
 }
 .input-form{
     display: block;
-    margin: 0 0 10px;
+    /* margin: 0 0 10px; */
     padding: 5px 10px 5px 10px;
     width: 50%;
 }
+.input-form.error{
+    border-color: red;
+}
+.icon{
+    color: red;
+    font-size: small;
+    margin-left: 5px;
+}
+span{
+    color: red;
+    display: flex;
+    align-items: center;
+    font-size: small;
+    font-family: 'Inter', sans-serif;
+}
 
+textarea{
+    height: 50px;
+    width: 470px;
+    resize: none;
+    font-family: 'Inter', sans-serif;
+}
+.btn-form{
+    width: 20%;
+    color: #FFFFFF;
+    background: orange;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    transition: 1s all;
+    cursor: pointer;
+}
+.btn-form:hover{
+    background: darkorange;
+    transform: scale(1.1);
+}

@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import Modal from '../Modal/Modal'
+import {BiErrorCircle} from 'react-icons/bi'
 import './style.css'
+import validateForm from '../../utils/validatorForm'
+
 
 // import { title } from './form.css';
 const Form=()=>{
@@ -10,7 +13,9 @@ const Form=()=>{
         password:'',
         textarea:''
     })
-    const [showModal, setShowModal]=useState(false)
+    const [data,setData]=useState({})
+    const [showModal,setShowModal]=useState(false)
+    const [errors,setError]=useState({})
 
     const handelInputChange=(event)=>{
         event.preventDefault()
@@ -19,55 +24,87 @@ const Form=()=>{
             ...inputs,
             [event.target.name]:value
         })
+        setError(validateForm(inputs))
         // console.log(event.target.name)
     }
 
     const handelSubmit=(event)=>{
         event.preventDefault()
         handelShowModal()
-        alert(JSON.stringify(inputs))
+        setData({
+            ...inputs
+        })
+
+        setInpunts({...inputs,
+            name:'',
+            email:'',
+            password:'',
+            textarea:''
+        })
+      
     }
 
     const handelShowModal=()=>{
         setShowModal(showModal=>showModal=!showModal)
+    
     }
 
+    const handelBlur=(event)=>{
+        handelInputChange(event)
+        setError(validateForm(inputs))
 
+    }
 
     return(
         <>
             <main className='containerForm'>
+                <h1>Form</h1>
                 <form onSubmit={handelSubmit}>
                     <label for='name'>Name
                         <input
                         type='text' 
                         name='name' 
                         id='name' 
-                        className='input-form' 
+                        className={errors.name ? 'input-form error':'input-form'}
                         onChange={handelInputChange}
+                        onBlur={handelBlur}
                         value={inputs.name}
                         required
+                        autoComplete="off"
                         />
+                        {errors.name && <span>{errors?.name}<BiErrorCircle className='icon'/></span>}
+                        
                     </label>
+                    
                     <label for='email'>Email
                         <input 
                         type='email' 
                         name='email' 
                         id='email' 
-                        className='input-form'
+                        className={errors.email ? 'input-form error':'input-form'}
                         onChange={handelInputChange}
+                        onBlur={handelBlur}
                         value={inputs.email} 
-                        required/>
+                        required
+                        autoComplete="off"
+                        />
+                        {errors.email && <span>{errors?.email}<BiErrorCircle className='icon'/></span>}
+                        
                     </label>
                     <label for='password'>Password
                         <input 
                         type='password' 
                         name='password' 
                         id='password' 
-                        className='input-form'
+                        className={errors.password ? 'input-form error':'input-form'}
                         onChange={handelInputChange}
+                        onBlur={handelBlur}
                         value={inputs.password} 
-                        required/>
+                        required
+                        autoComplete="off"
+                        />
+                        {errors.password && <span>{errors?.password}<BiErrorCircle className='icon'/></span>}
+                        
                     </label>
                     <label for='textArea'>Text Area
                         <textarea 
@@ -81,11 +118,15 @@ const Form=()=>{
                         >
                         </textarea>
                     </label>
-                    <input type="submit" value='Submit'/>
+                    <input 
+                    type="submit" 
+                    value='Submit'
+                    className="btn-form"/>
+                    
                 </form>
             </main>
             {
-                showModal && <Modal/>
+                showModal && <Modal data={data} showModalUI={showModal} handelShowModal={handelShowModal}/>
             }
         </>
 
@@ -95,54 +136,3 @@ const Form=()=>{
 }
 export default Form
 
-{/* <form>
-<label for="nameLastname">Nombre y Apellido</label>
-<input type="text" id="nameLastname" class="input-padron" required>
-
-<label for="email">Email</label>
-<input type="email" id="email" class="input-padron" placeholder="email@dominio.com" required>
-
-<label for="telefono">Telefono</label>
-<input type="tel" id="telefono" class="input-padron" placeholder="(XXXX)XXXXX" required>
-
-<label for="mensaje">Mensaje</label>
-<textarea id="mensaje" cols="65" rows="10" class="input-padron" required></textarea>
-
-<fieldset>
-    <legend>Forma de contacto:</legend>
-
-    <label for="email-radio">
-        <input type="radio"  id="email-radio" name="contacto" value="email">
-        Email
-    </label>
-    
-
-    <label for="telefono-radio">
-        <input type="radio"  id="telefono-radio" name="contacto" value="tel">
-        Tel
-    </label>
-    
-
-    <label for="wapp-radio">
-        <input checked type="radio"  id="wapp-radio" name="contacto" value="whatsapp">
-        Whatsapp
-    </label>
-    
-</fieldset>
-
-<fieldset>
-    <legend>Seleccione horario preferencial</legend>
-    <select name="" id="">
-        <option value="mahana">Mañana</option>
-        <option value="tarde">Tarde</option>
-        <option value="noche">Noche</option>
-    </select>
-</fieldset>
-
-<label class="checkbox" >¿Quiere recibir novedades?<input checked type="checkbox"></label>
-
-
-<input class="btn-submit" type="submit" value="Enviar formulario">
-
-
-</form> */}
