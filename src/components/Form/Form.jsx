@@ -3,7 +3,7 @@ import Modal from '../Modal/Modal'
 import {BiErrorCircle} from 'react-icons/bi'
 import './style.css'
 import validateForm from '../../utils/validatorForm'
-import valideteSubmit from '../../utils/validetSubmit'
+import validateSubmit from '../../utils/validateSubmit'
 
 
 
@@ -19,7 +19,7 @@ const Form=()=>{
     const [showModal,setShowModal]=useState(false)
     const [errors,setError]=useState({})
 
-    const handelInputChange=(event)=>{
+    const handleInputChange=(event)=>{
         event.preventDefault()
         const value = event.target.value
         setInpunts({
@@ -30,10 +30,10 @@ const Form=()=>{
         // console.log(event.target.name)
     }
 
-    const handelSubmit=(event)=>{
+    const handleSubmit=(event)=>{
         event.preventDefault()
-        if(Object.keys(errors).length === 0 && valideteSubmit(inputs)){
-            handelShowModal()
+        if(Object.keys(errors).length === 0 && validateSubmit(inputs)){
+            handleShowModal()
             setData({
                 ...inputs
             })
@@ -50,13 +50,13 @@ const Form=()=>{
       
     }
 
-    const handelShowModal=()=>{
+    const handleShowModal=()=>{
         setShowModal(showModal=>showModal=!showModal)
     
     }
 
-    const handelBlur=(event)=>{
-        handelInputChange(event)
+    const handleBlur=(event)=>{
+        handleInputChange(event)
         setError(validateForm(inputs))
 
     }
@@ -65,15 +65,15 @@ const Form=()=>{
         <>
             <main className='containerForm'>
                 <h1>Form</h1>
-                <form onSubmit={handelSubmit}>
+                <form onSubmit={handleSubmit}>
                     <label for='name'>Name
                         <input
                         type='text' 
                         name='name' 
                         id='name' 
                         className={errors.name ? 'input-form error':'input-form'}
-                        onChange={handelInputChange}
-                        onBlur={handelBlur}
+                        onChange={handleInputChange}
+                        onBlur={handleBlur}
                         value={inputs.name}
                         required
                         autoComplete="off"
@@ -88,8 +88,8 @@ const Form=()=>{
                         name='email' 
                         id='email' 
                         className={errors.email ? 'input-form error':'input-form'}
-                        onChange={handelInputChange}
-                        onBlur={handelBlur}
+                        onChange={handleInputChange}
+                        onBlur={handleBlur}
                         value={inputs.email} 
                         required
                         autoComplete="off"
@@ -103,8 +103,8 @@ const Form=()=>{
                         name='password' 
                         id='password' 
                         className={errors.password ? 'input-form error':'input-form'}
-                        onChange={handelInputChange}
-                        onBlur={handelBlur}
+                        onChange={handleInputChange}
+                        onBlur={handleBlur}
                         value={inputs.password} 
                         required
                         autoComplete="off"
@@ -119,7 +119,7 @@ const Form=()=>{
                         cols="30" 
                         rows="10" 
                         className='input-form'
-                        onChange={handelInputChange}
+                        onChange={handleInputChange}
                         value={inputs.textarea}
                         >
                         </textarea>
@@ -132,7 +132,7 @@ const Form=()=>{
                 </form>
             </main>
             {
-                showModal && <Modal data={data} showModalUI={showModal} handelShowModal={handelShowModal}/>
+                showModal && <Modal data={data} showModalUI={showModal} handleShowModal={handleShowModal}/>
             }
         </>
 
